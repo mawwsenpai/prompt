@@ -11,6 +11,6 @@ const CONFIG = {
     databaseURL: "https://generate-prompt-pro-default-rtdb.asia-southeast1.firebasedatabase.app"
   },
   // Ganti ini dengan API Key Gemini kamu
-  GEMINI_API_KEY: "AIzaSyCcrmlFxy3MNqqr3mv2roUQ67dPV3Uy-OU",
+  GEMINI_API_KEY: "AIzaSyBhNKPCzvWst1pVjjJLuT_DcuDlwvQOK5M",
   
 }
