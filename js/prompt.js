@@ -4,9 +4,6 @@ import {
     closeAllSelects
 } from './theme.js';
 
-// === DATA UNTUK RENDER DROPDOWN (VERSI PERBAIKAN) ===
-
-// PERBAIKAN: Menambahkan 'Default' dan merapikan teks
 const VIDEO_STYLE_OPTIONS = [
     { value: '', text: 'Gaya: (Default AI)' },
     { value: 'Sinematik', text: 'Gaya: Sinematik (Film)' },
@@ -17,7 +14,6 @@ const VIDEO_STYLE_OPTIONS = [
     { value: 'Dramatis', text: 'Gaya: Dramatis (Kontras tinggi)' }
 ];
 
-// PERBAIKAN: Menambahkan 'Default', mengurutkan, dan memperjelas
 const VIDEO_QUALITY_OPTIONS = [
     { value: '', text: 'Kualitas: (Default AI)' },
     { value: '720p', text: 'Kualitas: Standar (720p)' },
@@ -26,15 +22,12 @@ const VIDEO_QUALITY_OPTIONS = [
     { value: '8K', text: 'Kualitas: Sinematik (8K)' }
 ];
 
-// PERBAIKAN: Menggabungkan Tipe Kamera & Tampilan (Shot)
 const VIDEO_CAMERA_OPTIONS = [
     { value: '', text: 'Kamera: (Default AI)' },
-    // Tipe Lensa/Kamera
     { value: 'Lensa Sinematik (Arri Alexa)', text: 'Kamera: Sinematik (Lensa 35mm)' },
     { value: 'DSLR (Canon EOS 5D)', text: 'Kamera: DSLR (Lensa 50mm)' },
     { value: 'Ponsel (iPhone 15 Pro)', text: 'Kamera: Ponsel (Gaya Rekaman)' },
     { value: 'GoPro (POV)', text: 'Kamera: Aksi (GoPro POV)' },
-    // Tipe Gerakan/Shot
     { value: 'Drone shot', text: 'Tampilan: Drone (Aerial Shot)' },
     { value: 'Close-up shot', text: 'Tampilan: Close-up (Wajah/Detail)' },
     { value: 'Medium shot', text: 'Tampilan: Medium (Setengah Badan)' },
@@ -42,7 +35,6 @@ const VIDEO_CAMERA_OPTIONS = [
     { value: 'Tracking shot', text: 'Tampilan: Tracking (Mengikuti Objek)' }
 ];
 
-// PERBAIKAN: Menambahkan 'Default'
 const VIDEO_FPS_OPTIONS = [
     { value: '', text: 'FPS: (Default AI)' },
     { value: '30 FPS', text: 'FPS: 30 (Standar)' },
@@ -55,7 +47,6 @@ const PROMPT_LANGUAGE_OPTIONS = [
     { value: 'en-US', text: 'Bahasa: English' }
 ];
 
-// FITUR BARU: Opsi Bahasa Dialog
 const DIALOGUE_LANGUAGE_OPTIONS = [
     { value: '', text: 'Dialog: (Default/Otomatis)' },
     { value: 'Tanpa Dialog', text: 'Dialog: Tanpa Dialog (Sunyi)' },
@@ -80,20 +71,16 @@ const renderOptions = (containerId, options) => {
 
 
 const initCustomSelects = () => {
-    // 1. Render data ke div yang kosong
     renderOptions('video-style', VIDEO_STYLE_OPTIONS);
     renderOptions('video-quality', VIDEO_QUALITY_OPTIONS);
     renderOptions('video-camera', VIDEO_CAMERA_OPTIONS);
     renderOptions('video-fps', VIDEO_FPS_OPTIONS);
     renderOptions('prompt-language', PROMPT_LANGUAGE_OPTIONS);
     
-    // PERBAIKAN: Render dropdown baru
     renderOptions('dialogue-language', DIALOGUE_LANGUAGE_OPTIONS);
-    
-    // 2. Ubah div .custom-select menjadi dropdown interaktif
     document.querySelectorAll('.custom-select').forEach(select => {
-        if (select.querySelector('.select-selected')) return; // Udah di-init
-        if (select.children.length === 0) return; // Nggak ada data
+        if (select.querySelector('.select-selected')) return; 
+        if (select.children.length === 0) return; 
 
         const selected = document.createElement('div');
         selected.className = 'select-selected';
@@ -113,13 +100,12 @@ const initCustomSelects = () => {
             items.appendChild(option); 
         });
 
-        // Set nilai placeholder (jika ada) atau nilai default (opsi pertama)
         const placeholder = select.dataset.placeholder;
         if (placeholder) {
             selected.textContent = placeholder;
-            selected.dataset.placeholder = "true"; // Tandai sebagai placeholder
+            selected.dataset.placeholder = "true"; 
         } else {
-            // PERBAIKAN: Set ke opsi pertama (yang sekarang adalah 'Default')
+
             selected.textContent = items.children[0].textContent;
             selected.dataset.value = items.children[0].dataset.value;
         }
@@ -130,50 +116,35 @@ const initCustomSelects = () => {
 
         selected.addEventListener('click', e => {
             e.stopPropagation();
-            closeAllSelects(select); // Panggil fungsi global dari theme.js
+            closeAllSelects(select);
             const isActive = select.classList.toggle('active');
             items.style.display = isActive ? 'block' : 'none';
         });
     });
 };
 
-
-// === LOGIKA UTAMA HALAMAN PROMPT ===
-
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Ambil Kunci API & Local Storage
-    // Pastikan config.js sudah di-load di HTML
     const { GEMINI_API_KEY, LOCAL_STORAGE_KEY_PROMPTS } = CONFIG;
     
-    let characterCount = 0; // Penghitung karakter
+    let characterCount = 0; 
 
-    // === Cache Elemen DOM ===
     const loader = document.getElementById('loader');
     const notificationBar = document.getElementById('notification-bar');
-    
-    // Panel Slide (Prompt Tersimpan)
     const savedPanel = document.getElementById('saved-prompts-panel');
     const openSavedPanelBtn = document.getElementById('open-saved-panel');
     const closeSavedPanelBtn = document.getElementById('close-saved-panel');
     const savedPromptsList = document.getElementById('saved-prompts-list');
-    
-    // Panel Pop-up (Hasil)
     const resultScreen = document.getElementById('result-screen');
     const closeResultPanelBtn = document.getElementById('close-result-panel');
     const resultText = document.getElementById('result-text');
-    
-    // Tombol Aksi Utama
+
     const generateBtn = document.getElementById('generate-btn');
     const savePromptBtn = document.getElementById('save-prompt-btn');
     const copyPromptBtn = document.getElementById('copy-prompt-btn');
     
-    // Form
     const charactersContainer = document.getElementById('characters-container');
     
-    // === Fungsi Utilitas ===
-    
-    const showLoader = (text = "Membuat Keajaiban...") => {
+    const showLoader = (text = "Membuat...") => {
         if (loader) {
             loader.querySelector('p').textContent = text;
             loader.classList.remove('hidden');
@@ -186,11 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const showNotification = (message, type = 'success') => {
         if (!notificationBar) return;
-        // Ganti 'type' agar sesuai dengan warna tema
-        const colorVar = type === 'error' ? 'var(--accent-color)' : 'var(--accent-color)'; // Contoh, bisa disesuaikan
+        const colorVar = type === 'error' ? 'var(--accent-color)' : 'var(--accent-color)'; 
         
         notificationBar.textContent = message;
-        // Style notif-bar ada di theme.css, kita cuma ganti warnanya
         notificationBar.style.borderLeftColor = colorVar; 
         notificationBar.classList.add('show');
         setTimeout(() => notificationBar.classList.remove('show'), 3000);
@@ -204,8 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showNotification('Gagal menyalin prompt.', 'error');
         });
     };
-
-    // === Fungsi Panel ===
 
     const openSavedPanel = () => {
         if (savedPanel) savedPanel.classList.add('is-open');
@@ -221,8 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (resultScreen) resultScreen.classList.add('hidden');
     };
 
-    // === Fungsi Karakter ===
-    
     const addCharacterField = () => {
         characterCount++;
         const block = document.createElement('div');
@@ -235,8 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <textarea class="form-input char-description" rows="2" placeholder="Deskripsi karakter dan aksinya..."></textarea>
         `;
-        
-        // Tambah listener ke tombol hapus YANG BARU DIBUAT
         block.querySelector('.btn-remove-char').addEventListener('click', (e) => {
             e.target.closest('.character-block').remove();
         });
@@ -244,8 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
         charactersContainer.appendChild(block);
     };
 
-    // === Fungsi Local Storage (Prompt Tersimpan) ===
-    
     const getSavedPrompts = () => {
         try {
             return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_PROMPTS)) || [];
@@ -313,7 +274,7 @@ const generatePrompt = async () => {
         return showNotification("Harap masukkan API Key di file config.js", 'error');
     }
     
-    showLoader("Sedang merakit brief...");
+    showLoader("Sedang memperbaiki...");
     
     // Helper untuk ambil nilai dropdown
     const getSelectValue = (id) => {
@@ -370,7 +331,7 @@ PERATURAN PENTING:
 - FPS: ${fps || 'Default AI.'}
 --------------------`;
     
-    showLoader("Menghubungi AI...");
+    showLoader("Sedang membuat prompt...");
     
     // 3. Panggil API
     try {
@@ -401,21 +362,11 @@ PERATURAN PENTING:
 };
 
 
-    // === INISIALISASI HALAMAN ===
-    
     const initPage = () => {
-        // 1. Muat & Terapkan Tema (Panggil dari theme.js)
-        // 'false' = ini bukan halaman settings, jadi ngga usah update UI panel settings
         const settings = loadSettings();
         applySettings(settings, false); 
-
-        // 2. Render & Inisialisasi Dropdown Kustom
         initCustomSelects(); 
-
-        // 3. Tambah 1 field karakter default
         addCharacterField();
-
-        // 4. Tambah Listener Global (Panggil dari theme.js)
         document.addEventListener('click', closeAllSelects);
         
         // 5. Tambah Listener Tombol Utama
@@ -450,6 +401,5 @@ PERATURAN PENTING:
         });
     };
 
-    // Jalankan Halaman
     initPage();
 });
