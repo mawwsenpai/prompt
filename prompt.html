@@ -16,7 +16,7 @@
     
     <div class="loader-overlay hidden" id="loader">
         <div class="spinner"></div>
-        <p>Membuat Keajaiban...</p>
+        <p>Sedang Memuat..</p>
     </div>
 
     <div id="animated-bg-container"></div>
@@ -58,7 +58,7 @@
                 <div class="settings-grid">
                     <div class="custom-select" id="video-style" data-placeholder="Pilih Gaya Visual"></div>
                     <div class="custom-select" id="video-quality" data-placeholder="Pilih Kualitas"></div>
-                    <div class="custom-select" id="video-camera" data-placeholder="Pilih Kamera"></div>
+                    <div class="custom-select" id="video-camera" data-placeholder="Pilih Kamera/Tampilan"></div>
                     <div class="custom-select" id="video-fps" data-placeholder="Pilih FPS"></div>
                 </div>
             </div>
@@ -67,7 +67,12 @@
                 <label>Bahasa Prompt</label>
                 <div class="custom-select" id="prompt-language" data-placeholder="Pilih Bahasa"></div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label>Bahasa Dialog (Opsional)</label>
+                <div class="custom-select" id="dialogue-language" data-placeholder="Pilih Bahasa Dialog (jika ada)"></div>
+            </div>
+            </div>
 
     </main>
     
@@ -109,5 +114,6 @@
     
     <script src="js/config.js"></script> 
     <script type="module" src="js/theme.js"></script> 
-    <script type="module" src="js/prompt.js"></script> </body>
+    <script type="module" src="js/prompt.js"></script> 
+</body>
 </html>

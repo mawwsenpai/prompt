@@ -1,48 +1,70 @@
-/* =======================================================
-   ==   PROMPT.JS - (Pengurus Halaman prompt.html)      ==
-   ==   Menggunakan gaya dari theme.css (Novel Style)   ==
-   ======================================================= */
-
-// 1. IMPOR FUNGSI GLOBAL DARI THEME.JS
-// Kita butuh ini untuk memuat tema & font
 import {
     loadSettings,
     applySettings,
     closeAllSelects
 } from './theme.js';
 
-// === DATA UNTUK RENDER DROPDOWN ===
-// (Diambil dari HTML lama kamu, disesuaikan)
+// === DATA UNTUK RENDER DROPDOWN (VERSI PERBAIKAN) ===
+
+// PERBAIKAN: Menambahkan 'Default' dan merapikan teks
 const VIDEO_STYLE_OPTIONS = [
-    { value: 'Sinematik', text: 'Gaya: Sinematik' },
-    { value: 'Realistis', text: 'Gaya: Realistis' },
-    { value: 'Animasi Ghibli', text: 'Gaya: Animasi Ghibli' },
-    { value: 'Fantasi Epik', text: 'Gaya: Fantasi Epik' },
-    { value: 'Cyberpunk', text: 'Gaya: Cyberpunk' },
-    { value: 'Dramatis', text: 'Gaya: Dramatis' }
+    { value: '', text: 'Gaya: (Default AI)' },
+    { value: 'Sinematik', text: 'Gaya: Sinematik (Film)' },
+    { value: 'Realistis', text: 'Gaya: Realistis (Foto-nyata)' },
+    { value: 'Animasi Ghibli', text: 'Gaya: Animasi (Gaya Ghibli)' },
+    { value: 'Fantasi Epik', text: 'Gaya: Fantasi (Visual Epik)' },
+    { value: 'Cyberpunk', text: 'Gaya: Cyberpunk (Neon)' },
+    { value: 'Dramatis', text: 'Gaya: Dramatis (Kontras tinggi)' }
 ];
+
+// PERBAIKAN: Menambahkan 'Default', mengurutkan, dan memperjelas
 const VIDEO_QUALITY_OPTIONS = [
-    { value: 'Standar (1080p)', text: 'Kualitas: Standar (1080p)' },
-    { value: 'Tinggi (4K)', text: 'Kualitas: Tinggi (4K)' },
-    { value: 'Ultra (8K)', text: 'Kualitas: Ultra (8K)' },
-    { value: 'Sedang (720p)', text: 'Kualitas: Sedang (720p)' }
+    { value: '', text: 'Kualitas: (Default AI)' },
+    { value: '720p', text: 'Kualitas: Standar (720p)' },
+    { value: '1080p', text: 'Kualitas: HD (1080p)' },
+    { value: '4K', text: 'Kualitas: Ultra HD (4K)' },
+    { value: '8K', text: 'Kualitas: Sinematik (8K)' }
 ];
+
+// PERBAIKAN: Menggabungkan Tipe Kamera & Tampilan (Shot)
 const VIDEO_CAMERA_OPTIONS = [
-    { value: 'Kamera Sinema (Arri Alexa)', text: 'Kamera: Sinema (Arri Alexa)' },
-    { value: 'DSLR (Canon EOS 5D)', text: 'Kamera: DSLR (Canon EOS 5D)' },
-    { value: 'Ponsel (iPhone 15 Pro)', text: 'Kamera: Ponsel (iPhone 15 Pro)' },
-    { value: 'Drone Shot', text: 'Kamera: Drone Shot' },
-    { value: 'GoPro (POV)', text: 'Kamera: GoPro (POV)' }
+    { value: '', text: 'Kamera: (Default AI)' },
+    // Tipe Lensa/Kamera
+    { value: 'Lensa Sinematik (Arri Alexa)', text: 'Kamera: Sinematik (Lensa 35mm)' },
+    { value: 'DSLR (Canon EOS 5D)', text: 'Kamera: DSLR (Lensa 50mm)' },
+    { value: 'Ponsel (iPhone 15 Pro)', text: 'Kamera: Ponsel (Gaya Rekaman)' },
+    { value: 'GoPro (POV)', text: 'Kamera: Aksi (GoPro POV)' },
+    // Tipe Gerakan/Shot
+    { value: 'Drone shot', text: 'Tampilan: Drone (Aerial Shot)' },
+    { value: 'Close-up shot', text: 'Tampilan: Close-up (Wajah/Detail)' },
+    { value: 'Medium shot', text: 'Tampilan: Medium (Setengah Badan)' },
+    { value: 'Wide shot', text: 'Tampilan: Wide (Lingkungan)' },
+    { value: 'Tracking shot', text: 'Tampilan: Tracking (Mengikuti Objek)' }
 ];
+
+// PERBAIKAN: Menambahkan 'Default'
 const VIDEO_FPS_OPTIONS = [
-    { value: '30 FPS', text: 'FPS: 30' },
-    { value: '60 FPS', text: 'FPS: 60' },
+    { value: '', text: 'FPS: (Default AI)' },
+    { value: '30 FPS', text: 'FPS: 30 (Standar)' },
+    { value: '60 FPS', text: 'FPS: 60 (Mulus)' },
     { value: '120 FPS', text: 'FPS: 120 (Slow-mo)' }
 ];
+
 const PROMPT_LANGUAGE_OPTIONS = [
     { value: 'id-ID', text: 'Bahasa: Indonesia' },
     { value: 'en-US', text: 'Bahasa: English' }
 ];
+
+// FITUR BARU: Opsi Bahasa Dialog
+const DIALOGUE_LANGUAGE_OPTIONS = [
+    { value: '', text: 'Dialog: (Default/Otomatis)' },
+    { value: 'Tanpa Dialog', text: 'Dialog: Tanpa Dialog (Sunyi)' },
+    { value: 'Bahasa Indonesia', text: 'Dialog: Bahasa Indonesia' },
+    { value: 'English', text: 'Dialog: English' },
+    { value: 'Japanese', text: 'Dialog: Japanese' },
+    { value: 'Korean', text: 'Dialog: Korean' }
+];
+
 
 const renderOptions = (containerId, options) => {
     const selectContainer = document.getElementById(containerId);
@@ -64,6 +86,9 @@ const initCustomSelects = () => {
     renderOptions('video-camera', VIDEO_CAMERA_OPTIONS);
     renderOptions('video-fps', VIDEO_FPS_OPTIONS);
     renderOptions('prompt-language', PROMPT_LANGUAGE_OPTIONS);
+    
+    // PERBAIKAN: Render dropdown baru
+    renderOptions('dialogue-language', DIALOGUE_LANGUAGE_OPTIONS);
     
     // 2. Ubah div .custom-select menjadi dropdown interaktif
     document.querySelectorAll('.custom-select').forEach(select => {
@@ -94,6 +119,7 @@ const initCustomSelects = () => {
             selected.textContent = placeholder;
             selected.dataset.placeholder = "true"; // Tandai sebagai placeholder
         } else {
+            // PERBAIKAN: Set ke opsi pertama (yang sekarang adalah 'Default')
             selected.textContent = items.children[0].textContent;
             selected.dataset.value = items.children[0].dataset.value;
         }
@@ -280,79 +306,99 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // === Fungsi Generate (INTI) ===
+
+// PERBAIKAN DI SINI: GANTI FUNGSI INI SECARA KESELURUHAN
+const generatePrompt = async () => {
+    if (!GEMINI_API_KEY || GEMINI_API_KEY.includes("GANTI_DENGAN_API_KEY_KAMU")) {
+        return showNotification("Harap masukkan API Key di file config.js", 'error');
+    }
     
-    const generatePrompt = async () => {
-        if (!GEMINI_API_KEY || GEMINI_API_KEY.includes("GANTI_DENGAN_API_KEY_KAMU")) {
-            return showNotification("Harap masukkan API Key di file config.js", 'error');
-        }
-        
-        showLoader("Sedang merakit brief...");
-        
-        // Helper untuk ambil nilai dropdown
-        const getSelectValue = (id) => {
-             const el = document.getElementById(id)?.querySelector('.select-selected');
-             // Jika masih placeholder, kembalikan string kosong
-             return el?.dataset.placeholder ? "" : el?.dataset.value || "";
-        }
-        
-        // 1. Kumpulkan data
-        const scene = document.getElementById('video-scene').value;
-        const style = getSelectValue('video-style');
-        const quality = getSelectValue('video-quality');
-        const camera = getSelectValue('video-camera');
-        const fps = getSelectValue('video-fps');
-        const lang = getSelectValue('prompt-language');
-        
-        let characterDetails = Array.from(document.querySelectorAll('.character-block'))
-            .map((b, i) => {
-                const desc = b.querySelector('.char-description').value.trim();
-                return desc ? `- Karakter ${i+1}: ${desc}` : '';
-            })
-            .filter(detail => detail)
-            .join('\n');
-            
-        // 2. Buat Brief
-        const directorBrief = `ANDA ADALAH ASISTEN PEMBUAT PROMPT VIDEO AI. Buat satu paragraf prompt yang kaya, deskriptif, dan sinematik berdasarkan brief sutradara berikut. Fokus pada narasi visual, atmosfer, dan detail teknis. HANYA KELUARKAN PARAGRAF PROMPT FINAL DALAM BAHASA YANG DIPILIH.
+    showLoader("Sedang merakit brief...");
+    
+    // Helper untuk ambil nilai dropdown
+    const getSelectValue = (id) => {
+        const el = document.getElementById(id)?.querySelector('.select-selected');
+        // Jika masih placeholder ATAU valuenya string kosong (''), kembalikan string kosong
+        return (el?.dataset.placeholder || el?.dataset.value === "") ? "" : el?.dataset.value || "";
+    }
+    
+    // 1. Kumpulkan data
+    const scene = document.getElementById('video-scene').value;
+    const style = getSelectValue('video-style');
+    const quality = getSelectValue('video-quality');
+    const camera = getSelectValue('video-camera');
+    const fps = getSelectValue('video-fps');
+    const lang = getSelectValue('prompt-language');
+    const dialogueLang = getSelectValue('dialogue-language');
+    
+    let characterDetails = Array.from(document.querySelectorAll('.character-block'))
+        .map((b, i) => {
+            const desc = b.querySelector('.char-description').value.trim();
+            return desc ? `- Karakter ${i+1}: ${desc}` : '';
+        })
+        .filter(detail => detail)
+        .join('\n');
+    
+    // 2. Buat Brief (PERBAIKAN: Instruksi dialog lebih jelas)
+    
+    // --- INI LOGIKA BARU UNTUK 'MEMAKSA' DIALOG ---
+    let dialogueInstruction = "Tidak ada dialog spesifik. AI bebas menentukan.";
+    
+    if (dialogueLang === 'Tanpa Dialog') {
+        dialogueInstruction = "Pastikan prompt video TIDAK mengandung dialog atau ucapan sama sekali. Fokus hanya pada visual dan suara alam/musik.";
+    } else if (dialogueLang) {
+        // Jika bahasa dipilih (misal 'Bahasa Indonesia' atau 'English')
+        dialogueInstruction = `PENTING: Anda HARUS menyertakan dialog atau ucapan singkat dalam ${dialogueLang} yang diucapkan oleh karakter, sesuai dengan aksi dan adegan mereka. Contoh: "Pergi dari sini!" atau "Lihat, itu dia." Masukkan dialog ini ke dalam prompt secara alami.`;
+    }
+    // --- AKHIR LOGIKA BARU ---
+    
+    const directorBrief = `ANDA ADALAH ASISTEN PEMBUAT PROMPT VIDEO AI. Tugas Anda adalah membuat satu paragraf prompt video yang sinematik.
+    
+PERATURAN PENTING:
+1.  HANYA KELUARKAN PARAGRAF PROMPT FINAL dalam bahasa yang diminta.
+2.  Prompt harus fokus pada visual, atmosfer, dan detail teknis.
+3.  **PERHATIKAN INSTRUKSI DIALOG INI:** ${dialogueInstruction}
 
 --- BRIEF SUTRADARA ---
 - Bahasa Output: ${lang === 'id-ID' ? 'Bahasa Indonesia' : 'English'}
+- Instruksi Dialog: ${dialogueInstruction}
 - Deskripsi Adegan: ${scene || 'Tidak ada deskripsi spesifik.'}
 - Karakter & Aksi:\n${characterDetails || 'Tidak ada karakter spesifik.'}
-- Gaya Visual: ${style || 'Gaya standar.'}
-- Kualitas: ${quality || 'Kualitas standar.'}
-- Kamera: ${camera || 'Kamera standar.'}
-- FPS: ${fps || 'FPS standar.'}
+- Gaya Visual: ${style || 'Default AI.'}
+- Kualitas: ${quality || 'Default AI.'}
+- Kamera/Tampilan: ${camera || 'Default AI.'}
+- FPS: ${fps || 'Default AI.'}
 --------------------`;
-
-        showLoader("Menghubungi AI...");
+    
+    showLoader("Menghubungi AI...");
+    
+    // 3. Panggil API
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: directorBrief }] }] })
+        });
+        const data = await response.json();
         
-        // 3. Panggil API
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: [{ parts: [{ text: directorBrief }] }] })
-            });
-            const data = await response.json();
-            
-            if (!response.ok) throw new Error(data.error?.message || "Kesalahan API.");
-            
-            if (data.candidates && data.candidates.length > 0) {
-                resultText.textContent = data.candidates[0].content.parts[0].text.trim();
-                showResultPanel();
-            } else {
-                throw new Error(data.promptFeedback?.blockReason || "Respon diblokir.");
-            }
-            
-        } catch (error) {
-            showNotification("Gagal menghubungi Gemini API: " + error.message, 'error');
-            // Tampilkan error di panel hasil biar jelas
-            resultText.textContent = `Terjadi kesalahan. Pastikan API Key Anda valid dan tidak ada batasan.\n\nError: ${error.message}`;
+        if (!response.ok) throw new Error(data.error?.message || "Kesalahan API.");
+        
+        if (data.candidates && data.candidates.length > 0) {
+            resultText.textContent = data.candidates[0].content.parts[0].text.trim();
             showResultPanel();
-        } finally {
-            hideLoader();
+        } else {
+            throw new Error(data.promptFeedback?.blockReason || "Respon diblokir.");
         }
-    };
+        
+    } catch (error) {
+        showNotification("Gagal menghubungi Gemini API: " + error.message, 'error');
+        // Tampilkan error di panel hasil biar jelas
+        resultText.textContent = `Terjadi kesalahan. Pastikan API Key Anda valid dan tidak ada batasan.\n\nError: ${error.message}`;
+        showResultPanel();
+    } finally {
+        hideLoader();
+    }
+};
 
 
     // === INISIALISASI HALAMAN ===
