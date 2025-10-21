@@ -43,16 +43,7 @@ const PROMPT_LANGUAGE_OPTIONS = [
     { value: 'id-ID', text: 'Bahasa: Indonesia' },
     { value: 'en-US', text: 'Bahasa: English' }
 ];
-// === AKHIR DATA ===
 
-
-// === FUNGSI DROPDOWN KUSTOM (LOKAL) ===
-// Kita butuh ini di sini untuk merender dropdown YANG KOSONG
-// (Fungsi ini SAMA kayak di theme.js, tapi bisa render placeholder)
-
-/**
- * Merender opsi (Themes, Fonts, dll) ke dalam div .custom-select
- */
 const renderOptions = (containerId, options) => {
     const selectContainer = document.getElementById(containerId);
     if (selectContainer && selectContainer.children.length === 0) {
@@ -65,9 +56,7 @@ const renderOptions = (containerId, options) => {
     }
 };
 
-/**
- * Inisialisasi semua dropdown kustom di halaman.
- */
+
 const initCustomSelects = () => {
     // 1. Render data ke div yang kosong
     renderOptions('video-style', VIDEO_STYLE_OPTIONS);
@@ -339,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 3. Panggil API
         try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contents: [{ parts: [{ text: directorBrief }] }] })
