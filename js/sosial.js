@@ -1,6 +1,4 @@
-// js/sosial-script.js (Logic Khusus untuk sosial.html: Community, Profile, Login)
 
-// Import fungsi UI/Theme dari theme.js
 import { 
     loadSettings, 
     applySettings, 

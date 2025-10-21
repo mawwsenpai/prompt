@@ -262,13 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let prompts = getSavedPrompts();
         prompts.splice(index, 1);
         localStorage.setItem(LOCAL_STORAGE_KEY_PROMPTS, JSON.stringify(prompts));
-        renderSavedPrompts(); // Render ulang list
+        renderSavedPrompts(); 
         showNotification('Prompt dihapus.', 'info');
     };
 
-    // === Fungsi Generate (INTI) ===
-
-// PERBAIKAN DI SINI: GANTI FUNGSI INI SECARA KESELURUHAN
 const generatePrompt = async () => {
     if (!GEMINI_API_KEY || GEMINI_API_KEY.includes("GANTI_DENGAN_API_KEY_KAMU")) {
         return showNotification("Harap masukkan API Key di file config.js", 'error');
@@ -276,10 +273,8 @@ const generatePrompt = async () => {
     
     showLoader("Sedang memperbaiki...");
     
-    // Helper untuk ambil nilai dropdown
     const getSelectValue = (id) => {
         const el = document.getElementById(id)?.querySelector('.select-selected');
-        // Jika masih placeholder ATAU valuenya string kosong (''), kembalikan string kosong
         return (el?.dataset.placeholder || el?.dataset.value === "") ? "" : el?.dataset.value || "";
     }
     
@@ -299,20 +294,13 @@ const generatePrompt = async () => {
         })
         .filter(detail => detail)
         .join('\n');
-    
-    // 2. Buat Brief (PERBAIKAN: Instruksi dialog lebih jelas)
-    
-    // --- INI LOGIKA BARU UNTUK 'MEMAKSA' DIALOG ---
     let dialogueInstruction = "Tidak ada dialog spesifik. AI bebas menentukan.";
     
     if (dialogueLang === 'Tanpa Dialog') {
         dialogueInstruction = "Pastikan prompt video TIDAK mengandung dialog atau ucapan sama sekali. Fokus hanya pada visual dan suara alam/musik.";
     } else if (dialogueLang) {
-        // Jika bahasa dipilih (misal 'Bahasa Indonesia' atau 'English')
         dialogueInstruction = `PENTING: Anda HARUS menyertakan dialog atau ucapan singkat dalam ${dialogueLang} yang diucapkan oleh karakter, sesuai dengan aksi dan adegan mereka. Contoh: "Pergi dari sini!" atau "Lihat, itu dia." Masukkan dialog ini ke dalam prompt secara alami.`;
     }
-    // --- AKHIR LOGIKA BARU ---
-    
     const directorBrief = `ANDA ADALAH ASISTEN PEMBUAT PROMPT VIDEO AI. Tugas Anda adalah membuat satu paragraf prompt video yang sinematik.
     
 PERATURAN PENTING:
@@ -333,7 +321,6 @@ PERATURAN PENTING:
     
     showLoader("Sedang membuat prompt...");
     
-    // 3. Panggil API
     try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
             method: 'POST',
@@ -353,7 +340,6 @@ PERATURAN PENTING:
         
     } catch (error) {
         showNotification("Gagal menghubungi Gemini API: " + error.message, 'error');
-        // Tampilkan error di panel hasil biar jelas
         resultText.textContent = `Terjadi kesalahan. Pastikan API Key Anda valid dan tidak ada batasan.\n\nError: ${error.message}`;
         showResultPanel();
     } finally {
@@ -368,8 +354,6 @@ PERATURAN PENTING:
         initCustomSelects(); 
         addCharacterField();
         document.addEventListener('click', closeAllSelects);
-        
-        // 5. Tambah Listener Tombol Utama
         if (openSavedPanelBtn) openSavedPanelBtn.addEventListener('click', showSavedPrompts);
         if (closeSavedPanelBtn) closeSavedPanelBtn.addEventListener('click', closeSavedPanel);
         if (closeResultPanelBtn) closeResultPanelBtn.addEventListener('click', hideResultPanel);
@@ -378,22 +362,18 @@ PERATURAN PENTING:
         if (savePromptBtn) savePromptBtn.addEventListener('click', saveCurrentPrompt);
         if (copyPromptBtn) copyPromptBtn.addEventListener('click', () => copyToClipboard(resultText.textContent));
 
-        // 6. Listener dinamis (untuk tombol di dalam form/panel)
         document.body.addEventListener('click', (e) => {
             const target = e.target;
 
-            // Tombol "Tambah Karakter"
             if (target.dataset.action === 'add-character') {
                 addCharacterField();
             }
             
-            // Tombol "Hapus" di list prompt tersimpan
             if (target.classList.contains('delete-saved')) {
                 const index = parseInt(target.dataset.index, 10);
                 deleteSavedPrompt(index);
             }
             
-            // Tombol "Salin" di list prompt tersimpan
             if (target.classList.contains('copy-saved')) {
                 const textToCopy = target.closest('.saved-prompt-item').querySelector('.saved-prompt-text').textContent;
                 copyToClipboard(textToCopy);
