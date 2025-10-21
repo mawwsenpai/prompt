@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Prompt Generator Pro</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    
+    <div class="loader-overlay" id="loader">
+        <div class="spinner"></div>
+        <p>Memuat...</p>
+    </div>
+
+    <div id="animated-bg-container"></div>
+
+    <header class="main-header">
+        <div class="main-header-left">
+            <a href="profile.html" class="mobile-menu-toggle" title="Profil">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </a>
+            <h1 class="main-title">AI Prompt Generator</h1>
+        </div>
+        <div class="main-header-right">
+            <button class="mobile-menu-toggle" id="open-settings-panel" title="Pengaturan Tampilan">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="app-main-content">
+        
+        <div class="home-content-wrapper">
+            <h1>Generate Video AI</h1>
+            <p>Wujudkan imajinasi Anda menjadi visual menakjubkan hanya dengan beberapa kata.</p>
+            
+            <div class="home-buttons">
+                <a href="prompt.html" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.21 1.21 0 0 0 1.72 0L21.64 5.36a1.21 1.21 0 0 0 0-1.72z"></path><path d="m14 7 3 3"></path><path d="M5 15.8V19h3.2"></path><path d="m15 5 3.2 0H19v3.2"></path></svg>
+                    Mulai Berkreasi
+                </a>
+                <a href="sosial.html" class="btn btn-secondary">Komunitas</a>
+                <a href="https://mawwsenapi.github.io/RevisiPro/index.html" class="btn btn-secondary" target="_blank">Buat Novel</a>
+            </div>
+        </div>
+
+    </main>
+
+    <aside class="tags-slide-panel" id="settings-panel">
+        <div class="settings-panel-header">
+            <h3>Pengaturan Tampilan</h3>
+            <button id="close-settings-panel" class="mobile-menu-toggle" title="Tutup">
+                &times; </button>
+        </div>
+        
+        <div class="tags-panel-body">
+            
+            <div class="form-group">
+                <label for="theme-select">Tema Aplikasi</label>
+                <div class="custom-select" id="theme-select"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="font-select">Jenis Huruf</label>
+                <div class="custom-select" id="font-select"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="animation-select">Animasi Latar</label>
+                <div class="custom-select" id="animation-select"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="font-size-slider">Skala Huruf</label>
+                <input id="font-size-slider" 
+                       type="range" 
+                       min="0.8"  
+                       max="1.3"  
+                       step="0.05" 
+                       value="1.0">
+            </div>
+
+        </div>
+    </aside>
+    
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/theme.js"></script> 
+</body>
+</html>

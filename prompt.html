@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rakit Prompt - AI Generator</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/prompt.css">
+</head>
+<body>
+    
+    <div class="loader-overlay hidden" id="loader">
+        <div class="spinner"></div>
+        <p>Membuat Keajaiban...</p>
+    </div>
+
+    <div id="animated-bg-container"></div>
+
+    <header class="main-header">
+        <div class="main-header-left">
+            <a href="index.html" class="mobile-menu-toggle" title="Kembali">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            </a>
+            <h1 class="main-title">Rakit Prompt</h1>
+        </div>
+        <div class="main-header-right">
+            <button class="mobile-menu-toggle" id="open-saved-panel" title="Prompt Tersimpan">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="app-main-content" id="prompt-page-content">
+        
+        <div class="form-wrapper">
+            <div class="form-group">
+                <label for="video-scene">Deskripsi Adegan</label>
+                <textarea class="form-input" id="video-scene" placeholder="Jelaskan adegan, suasana, dan lokasi..." rows="2"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Karakter & Aksi</label>
+                <div id="characters-container">
+                    </div>
+                <button class="btn btn-secondary btn-small" data-action="add-character">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                    Tambah Karakter
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label>Pengaturan Video</label>
+                <div class="settings-grid">
+                    <div class="custom-select" id="video-style" data-placeholder="Pilih Gaya Visual"></div>
+                    <div class="custom-select" id="video-quality" data-placeholder="Pilih Kualitas"></div>
+                    <div class="custom-select" id="video-camera" data-placeholder="Pilih Kamera"></div>
+                    <div class="custom-select" id="video-fps" data-placeholder="Pilih FPS"></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Bahasa Prompt</label>
+                <div class="custom-select" id="prompt-language" data-placeholder="Pilih Bahasa"></div>
+            </div>
+        </div>
+
+    </main>
+    
+    <footer class="main-footer">
+        <button class="btn btn-primary" id="generate-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.21 1.21 0 0 0 1.72 0L21.64 5.36a1.21 1.21 0 0 0 0-1.72z"></path><path d="m14 7 3 3"></path><path d="M5 15.8V19h3.2"></path><path d="m15 5 3.2 0H19v3.2"></path></svg>
+            Generate Prompt
+        </button>
+    </footer>
+
+    <aside class="tags-slide-panel" id="saved-prompts-panel">
+        <div class="settings-panel-header">
+            <h3>Prompt Tersimpan</h3>
+            <button id="close-saved-panel" class="mobile-menu-toggle" title="Tutup">
+                &times; 
+            </button>
+        </div>
+        <div class="tags-panel-body" id="saved-prompts-list">
+            </div>
+    </aside>
+
+    <div class="overlay-panel hidden" id="result-screen">
+        <div class="panel-popup">
+            <div class="settings-panel-header">
+                <h3>Prompt Telah Siap!</h3>
+                <button id="close-result-panel" class="mobile-menu-toggle" title="Tutup">
+                    &times;
+                </button>
+            </div>
+            <div class="panel-popup-body">
+                <p class="selectable" id="result-text"></p>
+            </div>
+            <div class="panel-popup-footer">
+                <button class="btn btn-secondary" id="save-prompt-btn">Simpan</button>
+                <button class="btn btn-primary" id="copy-prompt-btn">Salin</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/config.js"></script> 
+    <script type="module" src="js/theme.js"></script> 
+    <script type="module" src="js/prompt.js"></script> </body>
+</html>

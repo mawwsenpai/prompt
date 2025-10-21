@@ -1,0 +1,516 @@
+/* ======================================================= */
+/* ==   STYLESHEET LENGKAP - HALAMAN INDEKS (BERANDA)   == */
+/* ======================================================= */
+
+/* --- 1. :ROOT & VARIABEL TEMA (Dari CSS Kamu) --- */
+:root {
+    /* Dimensi & Layout */
+    --header-height: 60px;
+    --sidebar-width: 320px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --padding-sm: 1rem;
+    --padding-md: 1.5rem;
+    --padding-lg: 2rem;
+    
+    /* Font Default */
+    --font-ui: 'Poppins', sans-serif;
+    --font-reading: 'Lora', serif;
+    
+    /* Transisi */
+    --transition-fast: all .2s ease-in-out;
+    --transition-smooth: all .3s cubic-bezier(.25, .8, .25, 1);
+    
+    /* Variabel Warna Utama (DARK MODE DEFAULT) */
+    --bg-primary: #0c1012;
+    --bg-primary-rgb: 12, 16, 18;
+    --bg-secondary: #1a2026;
+    --bg-secondary-rgb: 26, 32, 38;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --border-color: #2d3748;
+    --accent-color: #d5c192;
+    --accent-text: #1a202c;
+    --accent-color-rgb: 213, 193, 146;
+    
+    /* Variabel Interaktif & Glassmorphism */
+    --interactive-hover-bg: rgba(255, 255, 255, 0.1);
+    --interactive-active-bg: rgba(213, 193, 146, 0.2);
+    --glass-bg: rgba(var(--bg-secondary-rgb), 0.5);
+    --glass-blur: 10px;
+    
+    /* Variabel Lainnya (ASLI + SYSTEM) */
+    --border-style: 1px solid var(--border-color);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --scroll-thumb-color: rgba(255, 255, 255, 0.3);
+    --z-panel: 1000;
+    --z-loading: 9999;
+    
+    /* Variabel SISTEM TAMBAHAN (Wajib untuk kontrol JS) */
+    --z-bg-animation: -1; 
+    --system-font-scale: 1.0; 
+    --font-size-base: calc(1rem * var(--system-font-scale)); 
+}
+
+/* Terapkan properti ke body */
+body {
+    font-family: var(--font-ui);
+    font-size: var(--font-size-base);
+    background-color: var(--bg-primary); 
+    color: var(--text-primary); 
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Penting! Mencegah body di-scroll */
+}
+
+/* Scrollbar (jika ada, misal di panel) */
+* { 
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb-color) transparent;
+}
+*::-webkit-scrollbar { 
+    width: 6px; 
+}
+*::-webkit-scrollbar-thumb { 
+    background-color: var(--scroll-thumb-color); 
+    border-radius: 3px;
+}
+*::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+
+
+/* --- 2. TEMA: LIGHT & READING (Dari CSS Kamu) --- */
+
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-primary-rgb: 255, 255, 255;
+    --bg-secondary: #f4f4f4;
+    --bg-secondary-rgb: 244, 244, 244;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --border-color: #dddddd;
+    --accent-color: #007bff;
+    --accent-text: #ffffff;
+    --accent-color-rgb: 0, 123, 255;
+    --interactive-hover-bg: rgba(0, 0, 0, 0.05);
+    --interactive-active-bg: rgba(0, 123, 255, 0.1);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --scroll-thumb-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="reading"] {
+    --bg-primary: #f8f0e3;
+    --bg-primary-rgb: 248, 240, 227;
+    --bg-secondary: #eee8d5;
+    --bg-secondary-rgb: 238, 232, 213;
+    --text-primary: #4e342e;
+    --text-secondary: #795548;
+    --border-color: #d7ccc8;
+    --accent-color: #6d4c41;
+    --accent-text: #f8f0e3;
+    --accent-color-rgb: 109, 76, 65;
+    --interactive-hover-bg: rgba(109, 76, 65, 0.1);
+    --interactive-active-bg: rgba(109, 76, 65, 0.2);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --scroll-thumb-color: rgba(109, 76, 65, 0.3);
+}
+
+/* --- 3. DEFINISI FONT (Dari CSS Kamu) --- */
+/* Font default UI (Poppins) dan Baca (Lora) adalah font yang diwarisi dari :root */
+.font-default-ui body { font-family: var(--font-ui) !important; }
+.font-default-read body { font-family: var(--font-reading) !important; }
+.font-roboto body { font-family: 'Roboto', sans-serif !important; }
+.font-inter body { font-family: 'Inter', sans-serif !important; }
+.font-merriweather body { font-family: 'Merriweather', serif !important; }
+.font-alegreya body { font-family: 'Alegreya', serif !important; }
+.font-cormorant body { font-family: 'Cormorant', serif !important; }
+.font-fira-sans body { font-family: 'Fira Sans', sans-serif !important; }
+.font-crimson-text body { font-family: 'Crimson Text', serif !important; }
+.font-pt-serif body { font-family: 'PT Serif', serif !important; }
+
+
+/* --- 4. ANIMASI LATAR BELAKANG (Dari CSS Kamu) --- */
+#animated-bg-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    overflow: hidden;
+    z-index: var(--z-bg-animation);
+    pointer-events: none;
+}
+.animation-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+/* EFEK 1: BUBBLES (GELEMBUNG) */
+#bubbles span {
+    position: absolute;
+    bottom: -50px;
+    background: rgba(var(--accent-color-rgb), 0.2);
+    border-radius: 50%;
+    animation: bubble-rise 15s ease-out infinite;
+}
+@keyframes bubble-rise {
+    0% { transform: translateY(0) scale(0.8); opacity: 0.5; }
+    100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+}
+/* EFEK 2: SHOOTING STARS (BINTANG JATUH) */
+#shooting-stars span {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(-45deg, rgba(var(--accent-color-rgb), 0.9), transparent);
+    border-radius: 999px;
+    filter: drop-shadow(0 0 8px rgba(var(--accent-color-rgb), 0.6));
+    animation: shooting-star-fall 8s ease-in infinite;
+}
+@keyframes shooting-star-fall {
+    0% { transform: translateX(120vw) translateY(-50vh) rotate(-45deg); width: 150px; opacity: 1; }
+    100% { transform: translateX(-50vw) translateY(120vh) rotate(-45deg); width: 150px; opacity: 0; }
+}
+
+
+/* --- 5. LOADER & HEADER (Dari CSS Kamu) --- */
+.loader-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(var(--bg-primary-rgb), 0.85);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: var(--z-loading);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+.loader-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.spinner {
+    width: 50px; height: 50px;
+    border: 5px solid var(--border-color);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.main-header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--padding-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(var(--bg-primary-rgb), 0.7);
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    border-bottom: 1px solid rgba(var(--border-color-rgb), 0.2);
+}
+.main-header-left,
+.main-header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--padding-sm);
+}
+.main-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+}
+.mobile-menu-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.3rem; /* Ukuran ikon */
+    line-height: 1; /* Biar 'x' rapi */
+    cursor: pointer;
+    width: 44px; height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    flex-shrink: 0; /* Mencegah ikon gepeng */
+}
+.mobile-menu-toggle:hover {
+    background-color: var(--interactive-hover-bg);
+}
+.mobile-menu-toggle:active {
+    background-color: var(--interactive-active-bg);
+}
+
+
+/* --- 6. LAYOUT HALAMAN UTAMA (BARU) --- */
+.app-main-content {
+    /* KUNCI: Ini adalah area scrollable */
+    position: absolute;
+    top: var(--header-height); /* Mulai di bawah header */
+    left: 0;
+    right: 0;
+    bottom: 0; /* Sampai dasar */
+    height: calc(100vh - var(--header-height));
+    overflow-y: auto; /* HANYA INI YANG DI-SCROLL */
+    z-index: 50; /* Di bawah header */
+    padding: var(--padding-lg) var(--padding-md);
+    display: flex;
+    flex-direction: column;
+}
+.home-content-wrapper {
+    /* Wrapper untuk konten di tengah halaman */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+.home-content-wrapper h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    color: var(--text-primary);
+    margin-bottom: var(--padding-sm);
+}
+.home-content-wrapper p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--padding-lg);
+}
+.home-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-sm);
+    width: 100%;
+    max-width: 350px;
+}
+
+
+/* --- 7. PANEL SLIDE KANAN (Dari CSS Kamu) --- */
+.tags-slide-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: var(--z-panel);
+    height: 100dvh;
+    width: 100%;
+    max-width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    background: rgba(var(--bg-primary-rgb), 0.7);
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    border-left: 1px solid rgba(var(--border-color-rgb), 0.2);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tags-slide-panel.is-open {
+    transform: translateX(0);
+}
+.settings-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--padding-md);
+    border-bottom: 1px solid rgba(var(--border-color-rgb), 0.3);
+    flex-shrink: 0;
+    height: var(--header-height); /* Samakan tinggi */
+}
+.settings-panel-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Tombol close di panel header */
+.settings-panel-header .mobile-menu-toggle {
+    font-size: 2.2rem;
+    color: var(--text-primary);
+}
+.settings-panel-header .mobile-menu-toggle:hover {
+    color: var(--accent-color);
+}
+
+.tags-panel-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: var(--padding-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-lg); /* Jarak antar form-group */
+}
+
+
+/* --- 8. ELEMEN FORM & TOMBOL (BARU) --- */
+/* Style ini PENTING untuk panel settings & tombol beranda */
+
+/* Tombol */
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem var(--padding-md);
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: var(--border-radius-md);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--accent-text);
+}
+.btn-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+.btn-secondary:hover {
+    background-color: var(--interactive-hover-bg);
+    border-color: var(--text-secondary);
+}
+
+/* Grup Form (di dalam panel) */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* Custom Select (Dropdown) */
+.custom-select { 
+    position: relative; width: 100%; 
+}
+.select-selected { 
+    background-color: var(--bg-secondary); 
+    border: 1px solid var(--border-color); 
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem; 
+    cursor: pointer; 
+    user-select: none; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+}
+.select-selected:hover { 
+    border-color: var(--accent-color); 
+    background-color: var(--interactive-hover-bg);
+}
+.select-selected::after { 
+    content: ""; width: 0; height: 0; 
+    border-left: 5px solid transparent; 
+    border-right: 5px solid transparent; 
+    border-top: 5px solid var(--text-secondary); 
+    transition: var(--transition-fast); 
+}
+.custom-select.active .select-selected::after { 
+    transform: rotate(180deg); 
+}
+.select-items { 
+    position: absolute; 
+    /* Pakai style glassmorphism CSS kamu */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color); 
+    border-radius: var(--border-radius-md); 
+    top: 100%; left: 0; right: 0; 
+    z-index: 99; 
+    margin-top: 0.5rem; 
+    max-height: 200px; 
+    overflow-y: auto; 
+    display: none; 
+    box-shadow: var(--shadow-lg);
+}
+.select-items div { 
+    color: var(--text-primary); 
+    padding: 0.75rem 1rem; 
+    cursor: pointer; 
+    transition: var(--transition-fast); 
+}
+.select-items div:hover { 
+    background-color: var(--accent-color); 
+    color: var(--accent-text);
+}
+
+/* Slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+  outline: none;
+  cursor: pointer;
+}
+/* Tombol Bulat (Chrome/Safari/Edge) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  border: 2px solid var(--bg-primary);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-fast);
+}
+/* Tombol Bulat (Firefox) */
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  border: 2px solid var(--bg-primary);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.1);
+}
+input[type="range"]:hover::-moz-range-thumb {
+    transform: scale(1.1);
+}
