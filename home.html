@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuyStream AI | Masa Depan Video AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --card-bg: #111111;
+            --accent: #d5c192;
+            --accent-rgb: 213, 193, 146;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: rgba(255, 255, 255, 0.1);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --card-bg: #f5f5f7;
+            --accent: #0071e3;
+            --accent-rgb: 0, 113, 227;
+            --text: #1d1d1f;
+            --text-dim: #6e6e73;
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; transition: 0.3s; overflow-x: hidden; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(var(--bg), 0.7); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+        .logo span { color: var(--accent); }
+        
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; font-weight: 500; transition: 0.2s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .btn-primary {
+            background: var(--accent); color: #000; padding: 10px 24px;
+            border-radius: 30px; font-weight: 700; text-decoration: none;
+            transition: 0.3s; border: none; cursor: pointer;
+        }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(var(--accent-rgb), 0.3); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 0 10%; position: relative; overflow: hidden;
+        }
+        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; line-height: 1.1; letter-spacing: -3px; margin-bottom: 20px; }
+        .hero p { max-width: 600px; color: var(--text-dim); font-size: 1.2rem; margin-bottom: 40px; }
+
+        .hero-bg-blur {
+            position: absolute; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15) 0%, transparent 70%);
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
+            filter: blur(80px);
+        }
+
+        /* --- FEATURES SECTION --- */
+        .section { padding: 100px 5%; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 40px; border-radius: var(--radius); transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card .icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .card h3 { margin-bottom: 15px; font-size: 1.5rem; }
+        .card p { color: var(--text-dim); }
+
+        /* --- HOW IT WORKS --- */
+        .step-container { display: flex; gap: 50px; flex-wrap: wrap; justify-content: center; }
+        .step { text-align: center; flex: 1; min-width: 200px; }
+        .step-num { 
+            width: 60px; height: 60px; background: var(--accent); color: #000;
+            border-radius: 50%; display: grid; place-items: center;
+            margin: 0 auto 20px; font-weight: 800; font-size: 1.5rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 5%; border-top: 1px solid var(--border);
+            text-align: center; color: var(--text-dim); font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">CUY<span>STREAM</span></div>
+        <div class="nav-links">
+            <a href="#features">Fitur</a>
+            <a href="#process">Cara Kerja</a>
+            <a href="index.html" class="btn-primary">Buka App 🚀</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg-blur"></div>
+        <h1 class="reveal">Bikin Video AI<br>Tanpa Batas.</h1>
+        <p class="reveal">Gabungkan kekuatan Gemini API dengan Engine Video tercanggih untuk membuat konten sinematik dalam hitungan detik.</p>
+        <div class="reveal">
+            <a href="index.html" class="btn-primary" style="padding: 18px 40px; font-size: 1.1rem;">Coba Gratis Sekarang</a>
+        </div>
+    </header>
+
+    <section class="section" id="features">
+        <div class="section-header reveal">
+            <h2>Kenapa CuyStream?</h2>
+            <p>Teknologi gokil yang bikin lu gak perlu pusing mikirin editing.</p>
+        </div>
+        <div class="grid">
+            <div class="card reveal">
+                <span class="icon">🤖</span>
+                <h3>Powered by Gemini</h3>
+                <p>Menganalisis foto lu secara instan buat dapet gerakan yang paling natural dan ekspresif.</p>
+            </div>
+            <div class="card reveal">
+                <span class="icon">⚡</span>
+                <h3>Ultra Fast Render</h3>
+                <p>Nggak perlu nunggu seharian. Engine kita dirancang buat kecepatan maksimal tanpa ngurangin detail.</p>
+            </div>
+            <div class="card reveal">
+                <span class="icon">💎</span>
+                <h3>4K Quality</h3>
+                <p>Tulis kualitas yang lu mau, dan AI kita bakal render video dengan ketajaman luar biasa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="process" style="background: var(--card-bg);">
+        <div class="section-header reveal">
+            <h2>Tiga Langkah Mudah</h2>
+            <p>Sesimpel itu buat jadi kreator masa depan.</p>
+        </div>
+        <div class="step-container">
+            <div class="step reveal">
+                <div class="step-num">1</div>
+                <h3>Upload Foto</h3>
+                <p>Pilih foto wajah atau karakter yang mau lu hidupin.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">2</div>
+                <h3>Ketik Perintah</h3>
+                <p>Tulis apa yang lu mau dia lakuin atau katakan.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">3</div>
+                <h3>Jadi Deh!</h3>
+                <p>Tunggu sebentar dan download video AI lu.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 CuyStream AI. Built with ❤️ for the future.</p>
+    </footer>
+
+    <script>
+        // --- Scroll Reveal Animation ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once for initial load
+        reveal();
+    </script>
+</body>
+</html>
